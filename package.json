@@ -1,0 +1,44 @@
+{
+  "name": "js-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "start": "node app.js",
+    "lint": "eslint app.js ./config/* ./models/* ./routes/* --color",
+    "build": "npm-run-all -p test lint",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-const/js-dashboard.git"
+  },
+  "author": "M-CONST <55905384+m-const@users.noreply.github.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-const/js-dashboard/issues"
+  },
+  "homepage": "https://github.com/m-const/js-dashboard#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.9.13",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-watch": "^6.0.1",
+    "mocha": "^7.1.1",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.0.1"
+  }
+}
