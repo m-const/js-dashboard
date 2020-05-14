@@ -1,23 +1,24 @@
 const LocalStrategy = require("passport-local").Strategy;
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
 
+const MSG_BAD_LOGIN = "Invalid Username or Password";
+
 module.exports = function (passport) {
   passport.use(
     new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-      User.findOne({ email: email })
+      User.findOne({ email: email.toUpperCase() })
         .then((user) => {
           if (!user) {
-            return done(null, false, { message: "no user" });
+            return done(null, false, { message: MSG_BAD_LOGIN });
           }
           bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
               return done(null, user);
             } else {
-              return done(null, false, { message: "pw wrong" });
+              return done(null, false, { message: MSG_BAD_LOGIN });
             }
           });
         })

@@ -2,37 +2,30 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> User Profile
+        <i class="fas fa-user"></i> User Profile
       </h1>
-      
+
       <%- include('partials/messages') %>
       <form action="/users/register" method="POST">
         <div class="form-group">
           <label for="name">Name</label>
-          <input
-            type="name"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
-          />
+          <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
+            value="<%= typeof name != 'undefined' ? name : '' %>" />
         </div>
         <p>Groups <br>
-        <span class="badge badge-pill badge-info"><%= typeof role != 'undefined' ? role : '' %></span>
-      </p>
+          <% if(typeof role != 'undefined'){ %>
+          <% role.forEach(function(role) { %>
+          <button type="button" class="btn btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+            data-trigger="focus" title="<%= role %>" data-content="Description of <%= role %>"><%= role %></button>
+          <% }); %>
+          <% } %>
+        </p>
         <div class="form-group">
           <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Enter Email"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-          />
+          <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email"
+            value="<%= typeof email != 'undefined' ? email : '' %>" />
         </div>
-       
+
         <button type="submit" class="btn btn-primary btn-block">
           Update
         </button>

@@ -30,8 +30,9 @@ router.post("/register", (req, res) => {
       password2,
     });
   } else {
+
     //validation passed
-    User.findOne({ email: email }).then((user) => {
+    User.findOne({ email: email.toUpperCase() }).then((user) => {
       if (user) {
         //user exists
         errors.push({ msg: "Email is already registered" });
@@ -53,10 +54,11 @@ router.post("/register", (req, res) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
             newUser.password = hash;
+            newUser.email = email.toUpperCase();
             newUser
               .save()
               .then((user) => {
-                req.flash('success_msg', 'You are now registered. Please Login.');
+                req.flash('success_msg', `Welcome ${user.name}! You are now registered. Please Login.`);
                 res.redirect("/users/login");
               })
               .catch((err) => console.log(err));
@@ -67,8 +69,7 @@ router.post("/register", (req, res) => {
   }
 });
 
-router.get("/login", (req, res) => res.render("login"));
-router.get("/register", (req, res) => res.render("register"));
+
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
@@ -84,4 +85,9 @@ router.get('/logout', (req, res, next) => {
  req.flash('success_msg','Successfully logged out');
  res.redirect('/users/login');
 });
+
+
+router.get("/login", (req, res) => res.render("login"));
+router.get("/register", (req, res) => res.render("register"));
+
 module.exports = router;
