@@ -30,7 +30,10 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.use(function(req, res, next) {
+    if(req.user) req.user.role = 'Admin';
+    next();
+});
 app.use(passport.initialize());
 app.use(passport.session());
 

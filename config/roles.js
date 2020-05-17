@@ -1,12 +1,11 @@
-// module.exports = {
-//     validateRole: function(req,res,next){
-//         if(req.isAuthenticated()){
-
-            
-
-//             return next();
-//         }
-//         req.flash('error_msg', 'You do not have permission to access this resource.');
-//         res.redirect('/users/login');
-//     }
-// }
+module.exports = {
+  validateRole: function (role) {
+    return function (req, res, next) {
+      if (!req.user.role.includes(role)) {
+        res.redirect(403,'/dashboard');
+     } else {
+        next();
+      }
+    };
+  },
+};

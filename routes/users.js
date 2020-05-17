@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require('passport');
-
+const msg = require('../config/localization/messages.en');
 
 router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
@@ -11,15 +11,15 @@ router.post("/register", (req, res) => {
 
   //simple validation
   if (!name || !email || !password || !password2) {
-    errors.push({ msg: "All fields are required." });
+    errors.push({ msg: msg.MSG_FORM_NOT_FILLED});
   }
 
   if (password !== password2) {
-    errors.push({ msg: "Passwords do not match" });
+    errors.push({ msg: msg.MSG_PASSWORDS_DO_NOT_MATCH });
   }
 
   if (password.length < 7) {
-    errors.push({ msg: "Password must be atleast 8 characters in length" });
+    errors.push({ msg: msg.MSG_PASSWORD_POLICY_NOT_MET });
   }
   if (errors.length > 0) {
     res.render("register", {
@@ -35,7 +35,7 @@ router.post("/register", (req, res) => {
     User.findOne({ email: email.toUpperCase() }).then((user) => {
       if (user) {
         //user exists
-        errors.push({ msg: "Email is already registered" });
+        errors.push({ msg: msg.MSG_EMAIL_IN_USE });
         res.render("register", {
           errors,
           name,
@@ -58,7 +58,7 @@ router.post("/register", (req, res) => {
             newUser
               .save()
               .then((user) => {
-                req.flash('success_msg', `Welcome ${user.name}! You are now registered. Please Login.`);
+                req.flash('success_msg', msg.MSG_SUCCESSFUL_REGISTRATION);
                 res.redirect("/users/login");
               })
               .catch((err) => console.log(err));
@@ -87,7 +87,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 
-router.get("/login", (req, res) => res.render("login"));
-router.get("/register", (req, res) => res.render("register"));
+router.get("/login", (req, res) => res.render("login",{layout: 'layout_simple',pgTitle: msg.FN_TITLE("Login")}));
+router.get("/register", (req, res) => res.render("register",{layout: 'layout_simple',pgTitle: msg.FN_TITLE("Register")}));
 
 module.exports = router;
