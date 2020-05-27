@@ -12,7 +12,7 @@ const app = express();
 const db = require("./config/keys").MongoURI;
 
 mongoose
-  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify : false })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.error(err));
 
@@ -30,10 +30,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(function(req, res, next) {
-    if(req.user) req.user.role = 'Admin';
-    next();
-});
+
 app.use(passport.initialize());
 app.use(passport.session());
 

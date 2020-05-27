@@ -15,6 +15,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title><%= typeof pgTitle != 'undefined' ? pgTitle : 'NO PAGE TITLE' %></title>
+    
+    <style>body { padding-bottom: 70px; }</style>
 </head>
 
 <body>
@@ -29,7 +31,7 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item dropdown ">
-                        <a class="nav-link p-0 align-top" href="#" id="navbarDropdown" data-toggle="dropdown">Welcome <%= typeof name!= 'undefined' ? name: '' %>!&nbsp;<i class="far fa-user-circle fa-lg"></i>&nbsp;</a>
+                        <a class="nav-link p-0 align-top" href="#" id="navbarDropdown" data-toggle="dropdown">Welcome <span id="greeting"><%= typeof name!= 'undefined' ? name: '' %></span>!&nbsp;<i class="far fa-user-circle fa-lg"></i>&nbsp;</a>
                         <div class="dropdown-menu">
                             <a href="/dashboard/profile" class="dropdown-item btn btn-secondary">Update Profile</a>
                             <div class="dropdown-divider"></div>
@@ -58,7 +60,7 @@
             </div>
         </div>
         <nav class="navbar fixed-bottom navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Fixed bottom</a>
+            <a class="text-light" href="#"><small>Top</small></a>
         </nav>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

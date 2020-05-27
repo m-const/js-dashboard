@@ -2,13 +2,15 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
-const msg = require('./localization/messages.en');
-
+const msg = require("./localization/messages.en");
 
 module.exports = function (passport) {
   passport.use(
     new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-      User.findOne({ email: email.toUpperCase() })
+      User.findOneAndUpdate(
+        { email: email.toUpperCase() },
+        { last_login_date: Date.now() }
+      )
         .then((user) => {
           if (!user) {
             return done(null, false, { message: msg.MSG_BAD_LOGIN });
@@ -26,14 +28,13 @@ module.exports = function (passport) {
     })
   );
 
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function (user, done) {
     done(null, user.id);
   });
-  
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+
+  passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
       done(err, user);
     });
   });
-
-}
+};

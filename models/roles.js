@@ -5,6 +5,9 @@ const RoleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  parentrole: {
+    type: String
+  },
   description: {
     type: String,
     required: true,

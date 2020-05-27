@@ -15,5 +15,6 @@ module.exports = {
     "Password must be atleast 8 characters in length",
   MSG_EMAIL_IN_USE: "Email is already registered",
   MSG_SUCCESSFUL_REGISTRATION: "You are now registered. Please Login.",
-  MSG_UPDATE_SUCCESSFUL: "Update Successful"
+  MSG_UPDATE_SUCCESSFUL: "Update Successful",
+  
 };

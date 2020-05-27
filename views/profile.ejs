@@ -1,22 +1,19 @@
 <div class="row justify-content-center">
   <h2>
     <i class="fas fa-user"></i> User Profile
-  </h2></div>
-  <div class="row ml-4"><%- include('partials/messages') %>
+  </h2>
+</div>
+<div class="row ml-4"><%- include('partials/messages') %>
 </div>
 <div class="row ml-4">
-  
+
   <form action="/dashboard/profile/update" method="POST">
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" disabled
         value="<%= typeof email != 'undefined' ? email : '' %>" />
     </div>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
-        value="<%= typeof name != 'undefined' ? name : '' %>" />
-    </div>
+
     <div class="form-group">
       <p>Group Membership</p>
       <% if(typeof role != 'undefined'){ %>
@@ -26,7 +23,140 @@
       <% }); %>
       <% } %>
     </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
+        value="<%= typeof name != 'undefined' ? name : '' %>" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="phone_primary_type">Type</label>
+        <select id="phone_primary_type" name ="phone_primary_type" class="form-control">
+          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Mobile' ? 'selected' : '' %>>Mobile</option>
+          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Home' ? 'selected' : '' %>>Home</option>
+          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Work' ? 'selected' : '' %>>Work</option>
+          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Other' ? 'selected' : '' %>>Other</option>
+        </select>
+      </div>
+      <div class="form-group col-md-5">
+        <label for="phone_primary_number">Primary Phone</label>
+        <input type="phone" id="phone_primary_number" name="phone_primary_number" class="form-control" placeholder="Primary Phone Number"
+          value="<%= typeof phone_primary_number != 'undefined' ? phone_primary_number : '' %>" />
+      </div>
+    </div>
+
+    <p>
+      <a class="btn btn-secondary" data-toggle="collapse" href="#collapsePhone" role="button" aria-expanded="false"
+        aria-controls="collapsePhone">
+        Add Another Phone &nbsp;<i class="fas fa-plus-square"></i>
+      </a>
+    </p>
+    <div class="collapse" id="collapsePhone">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="phone_secondary_type">Type</label>
+          <select id="phone_secondary_type" name="phone_secondary_type" class="form-control">
+            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Mobile' ? 'selected' : '' %>>Mobile</option>
+            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Home' ? 'selected' : '' %>>Home</option>
+            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Work' ? 'selected' : '' %>>Work</option>
+            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Other' ? 'selected' : '' %>>Other</option>
+          </select>
+        </div>
+        <div class="form-group col-md-5">
+          <label for="phone_secondary_number">Phone</label>
+          <input type="phone" id="phone_secondary_number" name="phone_secondary_number" class="form-control" placeholder="Secondary Phone Number"
+            value="<%= typeof phone_secondary_number != 'undefined' ? phone_secondary_number : '' %>" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="address_primary_type">Type</label>
+        <select id="address_primary_type" name="address_primary_type" class="form-control">
+          <option selected>Home</option>
+          <option>Work</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group col-md-9">
+        <label for="address_primary_street">Address</label>
+        <input type="text" class="form-control" id="address_primary_line" name="address_primary_line" placeholder="1234 Main St" 
+        value="<%= typeof address_primary_street != 'undefined' ? address_primary_street : '' %>">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-5">
+        <label for="address_primary_city">City</label>
+        <input type="text" class="form-control" id="address_primary_city" name="address_primary_city" 
+        value="<%= typeof address_primary_city != 'undefined' ? address_primary_city : '' %>">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="address_primary_state">State/Province</label>
+        <select name="address_primary_state" id="address_primary_state" class="form-control">
+          <%- include('partials/form_parts_state_selects') %>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="address_primary_zip">Zip/Postal Code</label>
+        <input type="text" class="form-control" id="address_primary_zip"  name="address_primary_zip" 
+        value="<%= typeof address_primary_zip != 'undefined' ? address_primary_zip : '' %>">
+      </div>
+    </div>
+
+
+    <p>
+      <a class="btn btn-secondary" data-toggle="collapse" href="#collapseAddress" role="button" aria-expanded="false"
+        aria-controls="collapseAddress">
+        Add Another Address &nbsp;<i class="fas fa-plus-square"></i>
+      </a>
+    </p>
+    <div class="collapse" id="collapseAddress">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="address_secondary_type">Type</label>
+          <select id="address_secondary_type" name="address_secondary_type" class="form-control">
+            <option selected>Home</option>
+            <option>Work</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group col-md-9">
+          <label for="address_secondary_street">Address</label>
+          <input type="text" class="form-control" id="address_secondary_line" name="address_secondary_line" placeholder="1234 Main St" 
+          value="<%= typeof address_secondary_street != 'undefined' ? address_secondary_street : '' %>">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <label for="address_secondary_city">City</label>
+          <input type="text" class="form-control" id="address_secondary_city" name="address_secondary_city"  
+          value="<%= typeof address_secondary_city != 'undefined' ? address_secondary_city : '' %>">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="address_secondary_state">State/Province</label>
+          <select id="address_secondary_state" class="form-control" name="address_secondary_state">
+            <%- include('partials/form_parts_state_selects') %>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="address_secondary_zip">Zip/Postal Code</label>
+          <input type="text" class="form-control" id="address_secondary_zip" name="address_secondary_zip" 
+          value="<%= typeof address_secondary_zip != 'undefined' ? address_secondary_zip : '' %>">
+        </div>
+      </div>
+
+
+    </div>
+
     <button type="submit" class="btn btn-primary">Update</button>
     <a class="btn btn-danger" href="/dashboard" role="button">Cancel</a>
   </form>
+</div>
+<div class="row">
+  <p>&nbsp;</p>
 </div>
