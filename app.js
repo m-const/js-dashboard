@@ -9,7 +9,7 @@ require('./config/passport')(passport);
 
 
 const app = express();
-const db = require("./config/keys").MongoURI;
+const db = require("./config/setup").MongoURI;
 
 mongoose
   .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify : false })
@@ -45,11 +45,12 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(express.static(__dirname + '/assets'));
+
 //ROUTES
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 app.use("/dashboard", require("./routes/dashboard"));
-
+app.use("/setup", require("./routes/setup"));
 
 const PORT = process.env.PORT || 5000;
 

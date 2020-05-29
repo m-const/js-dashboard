@@ -15,9 +15,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    password_reset_flag: { 
+      type: Boolean, 
+      required: true, 
+      default: false },
     last_login_date: {
-      type: Date
+      type: Date,
     },
+
     role: {
       type: Array,
       required: true,
@@ -39,7 +44,7 @@ const UserSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
+  { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } }
 );
 
 const User = mongoose.model("User", UserSchema);

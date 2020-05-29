@@ -1,5 +1,5 @@
 module.exports = {
-  APP_NAME: "JS Dashboard",
+  APP_NAME: require("../setup").AppName,
   FN_TITLE: function (part) {
     if (!part) {
       return this.APP_NAME;
@@ -16,5 +16,6 @@ module.exports = {
   MSG_EMAIL_IN_USE: "Email is already registered",
   MSG_SUCCESSFUL_REGISTRATION: "You are now registered. Please Login.",
   MSG_UPDATE_SUCCESSFUL: "Update Successful",
-  
+  //
+  MSG_SUCCESSFUL_SETUP: "Set up Sucessfully"
 };

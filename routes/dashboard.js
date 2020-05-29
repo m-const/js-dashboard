@@ -4,6 +4,8 @@ const { validateRole } = require("../config/roles");
 const router = express.Router();
 const msg = require("../config/localization/messages.en");
 const User = require("../models/User");
+const Role = require("../models/Roles");
+
 
 router.get("/", ensureAuthenticated, (req, res) =>
   res.render("dashboard", {
@@ -11,9 +13,7 @@ router.get("/", ensureAuthenticated, (req, res) =>
     pgTitle: msg.FN_TITLE("Dashboard"),
   })
 );
-// router.get("/dashboard/manage/roles", ensureAuthenticated, (req, res) =>
-//   res.render("dashboard", { name: req.user.name })
-// );
+
 
 router.get("/roles", ensureAuthenticated, validateRole("Admin"), (req, res) =>
   res.render("roles", {
