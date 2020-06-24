@@ -6,9 +6,43 @@ const Role = require("../models/Roles");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
+// async function confirmAdminDB(){
+//  const dbReturn = await Role.exists({ rolename: setup.adminGroup[0] }, (err, qres) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       if (qres) {
+//         req.flash("success_msg", msg.MSG_SUCCESSFUL_SETUP);
+//         res.redirect("/users/login");
+//       }
+//     }
+//   });
+
+// }
+
+
 router.get("/:setupCode", (req, res) => {
-  //add the admin group
+  
+ 
+
+  //make sure the code is right
   if (req.params.setupCode === setup.setupCode) {
+
+     //see if theres an admin group already
+  //confirmAdminDB();
+
+  Role.exists({ rolename: setup.adminGroup[0] }, (err, qres) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (qres) {
+        req.flash("error_msg", msg.MSG_EXISTING_SETUP);
+        res.redirect("/users/login");
+      }
+    }
+  });
+
+    //add the admin group
     let addAdminGroup = new Role({
       rolename: setup.adminGroup[0],
       description: setup.adminGroup[1],
@@ -27,7 +61,7 @@ router.get("/:setupCode", (req, res) => {
     const adminUser = new User({
       name: "Admin User",
       email: setup.adminUserEmail,
-      password : "admin",
+      password: "admin",
       password_reset_flag: true,
     });
     bcrypt.genSalt(10, (err, salt) => {
@@ -46,6 +80,7 @@ router.get("/:setupCode", (req, res) => {
     req.flash("success_msg", msg.MSG_SUCCESSFUL_SETUP);
     res.redirect("/users/login");
   } else {
+    console.log("bad request");
     res.redirect("/");
   }
 });

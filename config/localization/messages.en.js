@@ -17,5 +17,6 @@ module.exports = {
   MSG_SUCCESSFUL_REGISTRATION: "You are now registered. Please Login.",
   MSG_UPDATE_SUCCESSFUL: "Update Successful",
   //
-  MSG_SUCCESSFUL_SETUP: "Set up Sucessfully"
+  MSG_SUCCESSFUL_SETUP: "Set up Sucessfully",
+  MSG_EXISTING_SETUP: "Set up Already run"
 };
