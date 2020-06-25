@@ -6,64 +6,41 @@ const Role = require("../models/Roles");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-// async function confirmAdminDB(){
-//  const dbReturn = await Role.exists({ rolename: setup.adminGroup[0] }, (err, qres) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       if (qres) {
-//         req.flash("success_msg", msg.MSG_SUCCESSFUL_SETUP);
-//         res.redirect("/users/login");
-//       }
-//     }
-//   });
-
-// }
-
-
 router.get("/:setupCode", (req, res) => {
-  
- 
-
   //make sure the code is right
-  if (req.params.setupCode === setup.setupCode) {
+  const fs = require("fs");
+  const setupFilePath = "./config/setupcode.txt";
+  const setupCode = fs.existsSync(setupFilePath)
+    ? fs.readFileSync(setupFilePath, "utf-8").trim()
+    : false;
 
-     //see if theres an admin group already
-  //confirmAdminDB();
-
-  Role.exists({ rolename: setup.adminGroup[0] }, (err, qres) => {
-    if (err) {
-      console.log(err);
-    } else {
-      if (qres) {
-        req.flash("error_msg", msg.MSG_EXISTING_SETUP);
-        res.redirect("/users/login");
-      }
-    }
-  });
-
-    //add the admin group
+ 
+  if (req.params.setupCode === setupCode && setupCode !== false) {
+    //define everything
     let addAdminGroup = new Role({
       rolename: setup.adminGroup[0],
       description: setup.adminGroup[1],
       system: true,
     });
-    addAdminGroup.save().catch((err) => console.log(err));
-
-    //add the base user group
     let addUserGroup = new Role({
       rolename: setup.userGroup[0],
       description: setup.userGroup[1],
       system: true,
     });
-    addUserGroup.save().catch((err) => console.log(err));
-
     const adminUser = new User({
       name: "Admin User",
       email: setup.adminUserEmail,
       password: "admin",
+      role: [setup.adminGroup[0]],
       password_reset_flag: true,
     });
+
+    //add the admin group
+
+    addAdminGroup.save().catch((err) => console.log(err));
+
+    addUserGroup.save().catch((err) => console.log(err));
+
     bcrypt.genSalt(10, (err, salt) => {
       if (err) throw err;
       bcrypt.hash(adminUser.password, salt, (err, hash) => {
@@ -75,16 +52,18 @@ router.get("/:setupCode", (req, res) => {
     });
 
     //clear the setupCode so we cant run this again
-    setup.setupCode = false;
-
+    fs.unlink("./config/setupcode.txt", (err) => {
+      if (err) {
+        console.log(err);
+      } 
+    });
     req.flash("success_msg", msg.MSG_SUCCESSFUL_SETUP);
     res.redirect("/users/login");
   } else {
-    console.log("bad request");
+    console.log("Setup was attempted with an invalid code");
     res.redirect("/");
   }
 });
-
 router.get("/", (req, res) => {
   res.redirect("/");
 });

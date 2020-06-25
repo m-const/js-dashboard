@@ -1,6 +1,6 @@
 # Dashboard
 
-A basic dashboard, authentication, user and role management framework using Node, Express, Passport and MongoDB
+A basic dashboard template using Node, Express, Passport and MongoDB
 
 Features Progress
 - [x] User Authentication with Passport 
