@@ -1,44 +1,54 @@
 <div class="row justify-content-center">
   <h2>
-        <i class="fas fa-user-tag"></i> Manage User Roles
-      </h2></div>
-      <div class="row ml-4"><%- include('partials/messages') %>
+    <i class="fas fa-user-tag"></i> Manage User Roles
+  </h2>
 </div>
-      <div class="row ml-4">
-     
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Role Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Members</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <form action="/dashboard/roles" method="POST">
-            <% if(typeof role != 'undefined'){ %>
-            <% role.forEach(function(role,index) { %>
-            <form action="/dashboard/roles" method="POST">
+<div class="row ml-4">
+  <%- include('partials/messages') %>
+</div>
+<div class="row ml-4">
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Role Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Members</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <form action="/dashboard/roles/update" method="POST">
+        <% if(typeof role !='undefined' ){ %>
+          <% role.forEach(function(role,index) { %>
+            <form action="/dashboard/roles/update" method="POST">
               <tr>
                 <th scope="row">
-                  <%= role[0] %> 
-                  <% if(role[2]){ %>
-                  <p><small>System Role</small></p>
-                  <% } %>
+                  <%= role[0] %>
+                    <% if(role[2]){ %>
+                      <p><small>System Role</small></p>
+                      <% } %>
                 </th>
-                <td><%= role[1] %></td>
+                <td>
+                  <%= role[1] %>
+                </td>
                 <td> ... </td>
-                <td><button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                <td><button type="submit" name="<%= role[0] %>" value="<%= role[0] %>" class="btn btn-primary"><i class="fas fa-edit"></i></button>
                   <% if(!role[2]){ %>
-                  <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                  <% } %>
+                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    <% } %>
                 </td>
               </tr>
             </form>
             <% }); %>
-            <% } %>
-        </tbody>
-      </table>
+              <% } %>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <p>
+      <a class="btn btn-primary" href="/dashboard/roles/add" role="button">Add Group</a>
       <a class="btn btn-danger" href="/dashboard" role="button">Cancel</a>
-      </div>
+    </p>
+  </div>
+</div>

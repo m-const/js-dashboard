@@ -1,3 +1,11 @@
+/*
+Dashboard Landing Page
+
+Scope: User is signed in with valid session
+
+*/
+
+
 const express = require("express");
 const { ensureAuthenticated } = require("../config/auth");
 const { validateRole } = require("../config/roles");
@@ -14,19 +22,32 @@ router.get("/", ensureAuthenticated, (req, res) =>
   })
 );
 
+/*  */
 
-router.get("/roles", ensureAuthenticated, validateRole("Admin"), (req, res) =>
-  res.render("roles", {
-    role: [
-      ["User", "Group Level Access", true],
-      ["Admin", "Full access", true],
-      ["Team Red", "Access to team red resources", false],
-      ["Team Blue", "Access to team blue resources", false],
-    ],
-    pgTitle: msg.FN_TITLE("Manage Roles"), name: req.user.name,
+router.get("/roles", ensureAuthenticated, validateRole("admin"), (req, res) =>{
+  Role.find().sort('-system rolename').then((roles) => {
+    let roleArr=new Array;
+    roles.forEach((val,key) => {
+      roleArr[key] = [val.rolename,val.description,val.system]
+
+    });
+    res.render("roles", { 
+      role: roleArr, 
+      pgTitle: msg.FN_TITLE("Manage Roles"), name: req.user.name
+    });
   })
-);
+});
+router.post("/roles/update", ensureAuthenticated, (req, res) => {
+  
+  //const { name } = req.body;
 
+    //req.flash('success_msg', msg.MSG_UPDATE_SUCCESSFUL);
+    res.redirect("/dashboard/roles");
+
+
+  
+ 
+});
 router.get("/profile", ensureAuthenticated, (req, res) =>
   res.render("profile", {
     name: req.user.name,

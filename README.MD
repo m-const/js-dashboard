@@ -8,3 +8,4 @@ Features Progress
 - [ ] Test Framework with Mocha, Chai and Selenium
 - [x] Language localization framework
 - [ ] User Role framework
+- [ ] Logging framework

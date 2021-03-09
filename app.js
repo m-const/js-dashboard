@@ -16,7 +16,7 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.error(err));
 
-//EJS
+//EJS View engine
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 

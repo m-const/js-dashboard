@@ -3,7 +3,8 @@
     <i class="fas fa-user"></i> User Profile
   </h2>
 </div>
-<div class="row ml-4"><%- include('partials/messages') %>
+<div class="row ml-4">
+  <%- include('partials/messages') %>
 </div>
 <div class="row ml-4">
 
@@ -16,12 +17,14 @@
 
     <div class="form-group">
       <p>Group Membership</p>
-      <% if(typeof role != 'undefined'){ %>
-      <% role.forEach(function(role) { %>
-      <button type="button" class="btn btn-outline-secondary" data-toggle="popover" data-placement="bottom"
-        data-trigger="focus" title="<%= role %>" data-content="Description of <%= role %>"><%= role %></button>
-      <% }); %>
-      <% } %>
+      <% if(typeof role !='undefined' ){ %>
+        <% role.forEach(function(role) { %>
+          <button type="button" class="btn btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+            data-trigger="focus" title="<%= role %>" data-content="Description of <%= role %>">
+            <%= role %>
+          </button>
+          <% }); %>
+            <% } %>
     </div>
 
     <div class="form-group">
@@ -33,16 +36,21 @@
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="phone_primary_type">Type</label>
-        <select id="phone_primary_type" name ="phone_primary_type" class="form-control">
-          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Mobile' ? 'selected' : '' %>>Mobile</option>
-          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Home' ? 'selected' : '' %>>Home</option>
-          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Work' ? 'selected' : '' %>>Work</option>
-          <option <%= typeof phone_primary_type != 'undefined' && phone_primary_type =='Other' ? 'selected' : '' %>>Other</option>
+        <select id="phone_primary_type" name="phone_primary_type" class="form-control">
+          <option <%=typeof phone_primary_type !='undefined' && phone_primary_type=='Mobile' ? 'selected' : '' %>>Mobile
+          </option>
+          <option <%=typeof phone_primary_type !='undefined' && phone_primary_type=='Home' ? 'selected' : '' %>>Home
+          </option>
+          <option <%=typeof phone_primary_type !='undefined' && phone_primary_type=='Work' ? 'selected' : '' %>>Work
+          </option>
+          <option <%=typeof phone_primary_type !='undefined' && phone_primary_type=='Other' ? 'selected' : '' %>>Other
+          </option>
         </select>
       </div>
       <div class="form-group col-md-5">
         <label for="phone_primary_number">Primary Phone</label>
-        <input type="phone" id="phone_primary_number" name="phone_primary_number" class="form-control" placeholder="Primary Phone Number"
+        <input type="phone" id="phone_primary_number" name="phone_primary_number" class="form-control"
+          placeholder="Primary Phone Number"
           value="<%= typeof phone_primary_number != 'undefined' ? phone_primary_number : '' %>" />
       </div>
     </div>
@@ -58,15 +66,20 @@
         <div class="form-group col-md-3">
           <label for="phone_secondary_type">Type</label>
           <select id="phone_secondary_type" name="phone_secondary_type" class="form-control">
-            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Mobile' ? 'selected' : '' %>>Mobile</option>
-            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Home' ? 'selected' : '' %>>Home</option>
-            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Work' ? 'selected' : '' %>>Work</option>
-            <option <%= typeof phone_secondary_type != 'undefined' && phone_secondary_type =='Other' ? 'selected' : '' %>>Other</option>
+            <option <%=typeof phone_secondary_type !='undefined' && phone_secondary_type=='Mobile' ? 'selected' : '' %>
+              >Mobile</option>
+            <option <%=typeof phone_secondary_type !='undefined' && phone_secondary_type=='Home' ? 'selected' : '' %>
+              >Home</option>
+            <option <%=typeof phone_secondary_type !='undefined' && phone_secondary_type=='Work' ? 'selected' : '' %>
+              >Work</option>
+            <option <%=typeof phone_secondary_type !='undefined' && phone_secondary_type=='Other' ? 'selected' : '' %>
+              >Other</option>
           </select>
         </div>
         <div class="form-group col-md-5">
           <label for="phone_secondary_number">Phone</label>
-          <input type="phone" id="phone_secondary_number" name="phone_secondary_number" class="form-control" placeholder="Secondary Phone Number"
+          <input type="phone" id="phone_secondary_number" name="phone_secondary_number" class="form-control"
+            placeholder="Secondary Phone Number"
             value="<%= typeof phone_secondary_number != 'undefined' ? phone_secondary_number : '' %>" />
         </div>
       </div>
@@ -84,15 +97,16 @@
       </div>
       <div class="form-group col-md-9">
         <label for="address_primary_street">Address</label>
-        <input type="text" class="form-control" id="address_primary_line" name="address_primary_line" placeholder="1234 Main St" 
-        value="<%= typeof address_primary_street != 'undefined' ? address_primary_street : '' %>">
+        <input type="text" class="form-control" id="address_primary_line" name="address_primary_line"
+          placeholder="1234 Main St"
+          value="<%= typeof address_primary_street != 'undefined' ? address_primary_street : '' %>">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-5">
         <label for="address_primary_city">City</label>
-        <input type="text" class="form-control" id="address_primary_city" name="address_primary_city" 
-        value="<%= typeof address_primary_city != 'undefined' ? address_primary_city : '' %>">
+        <input type="text" class="form-control" id="address_primary_city" name="address_primary_city"
+          value="<%= typeof address_primary_city != 'undefined' ? address_primary_city : '' %>">
       </div>
       <div class="form-group col-md-4">
         <label for="address_primary_state">State/Province</label>
@@ -102,8 +116,8 @@
       </div>
       <div class="form-group col-md-3">
         <label for="address_primary_zip">Zip/Postal Code</label>
-        <input type="text" class="form-control" id="address_primary_zip"  name="address_primary_zip" 
-        value="<%= typeof address_primary_zip != 'undefined' ? address_primary_zip : '' %>">
+        <input type="text" class="form-control" id="address_primary_zip" name="address_primary_zip"
+          value="<%= typeof address_primary_zip != 'undefined' ? address_primary_zip : '' %>">
       </div>
     </div>
 
@@ -126,16 +140,17 @@
         </div>
         <div class="form-group col-md-9">
           <label for="address_secondary_street">Address</label>
-          <input type="text" class="form-control" id="address_secondary_line" name="address_secondary_line" placeholder="1234 Main St" 
-          value="<%= typeof address_secondary_street != 'undefined' ? address_secondary_street : '' %>">
+          <input type="text" class="form-control" id="address_secondary_line" name="address_secondary_line"
+            placeholder="1234 Main St"
+            value="<%= typeof address_secondary_street != 'undefined' ? address_secondary_street : '' %>">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-5">
           <label for="address_secondary_city">City</label>
-          <input type="text" class="form-control" id="address_secondary_city" name="address_secondary_city"  
-          value="<%= typeof address_secondary_city != 'undefined' ? address_secondary_city : '' %>">
+          <input type="text" class="form-control" id="address_secondary_city" name="address_secondary_city"
+            value="<%= typeof address_secondary_city != 'undefined' ? address_secondary_city : '' %>">
         </div>
         <div class="form-group col-md-4">
           <label for="address_secondary_state">State/Province</label>
@@ -145,8 +160,8 @@
         </div>
         <div class="form-group col-md-3">
           <label for="address_secondary_zip">Zip/Postal Code</label>
-          <input type="text" class="form-control" id="address_secondary_zip" name="address_secondary_zip" 
-          value="<%= typeof address_secondary_zip != 'undefined' ? address_secondary_zip : '' %>">
+          <input type="text" class="form-control" id="address_secondary_zip" name="address_secondary_zip"
+            value="<%= typeof address_secondary_zip != 'undefined' ? address_secondary_zip : '' %>">
         </div>
       </div>
 
@@ -158,5 +173,6 @@
   </form>
 </div>
 <div class="row">
-  <p>&nbsp;</p>
+  <p>&nbsp;
+  </p>
 </div>

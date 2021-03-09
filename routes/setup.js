@@ -1,3 +1,8 @@
+/*
+One Time app set up
+
+Creates admin user, default roles and 
+*/
 const express = require("express");
 const router = express.Router();
 const msg = require("../config/localization/messages.en");

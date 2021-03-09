@@ -5,6 +5,8 @@ const User = require("../models/User");
 const passport = require("passport");
 const msg = require("../config/localization/messages.en");
 
+//POST METHOD routers
+
 router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
   let errors = [];
@@ -36,6 +38,7 @@ router.post("/register", (req, res) => {
     User.findOne({ email: email.toUpperCase() }).then((user) => {
       if (user) {
         //user exists
+        
         errors.push({ msg: msg.MSG_EMAIL_IN_USE });
         res.render("register", {
           errors,
@@ -82,6 +85,9 @@ router.post("/login", (req, res, next) => {
     }
   )(req, res, next);
 });
+
+
+//GET METHOD routers
 
 router.get("/logout", (req, res, next) => {
   req.logOut();
